@@ -1,4 +1,3 @@
-
 function collision(firstElement, secondElement) {
     const first = firstElement.getBoundingClientRect();
     const second = secondElement.getBoundingClientRect();
@@ -10,8 +9,7 @@ function collision(firstElement, secondElement) {
 }
 
 function move(axis, vel, stopped = null) {
-    const otherAxis = axis == "x" ? "y" : "x";
-    const sizeName = axis == "x" ? "width" : "height";
+    const sizeName = axis === "x" ? "width" : "height";
 
     const e = document.querySelector("#movable");
     // for stopped
@@ -19,7 +17,7 @@ function move(axis, vel, stopped = null) {
     e.attributes[axis].value = parseFloat(e.attributes[axis].value) + vel;
     for (const r of document.querySelectorAll("rect")) {
         // prevent self-collision
-        if (r == e) continue;
+        if (r === e) continue;
         if (collision(r, e)) {
             const size = vel < 0 ? parseFloat(r.attributes[sizeName].value) : 0;
             const edge = parseFloat(r.attributes[axis].value) + size;
@@ -31,16 +29,22 @@ function move(axis, vel, stopped = null) {
     }
     // for stopped
     const after = e.attributes[axis].value;
-    if (stopped != null && Math.round(after - before) == 0)
+    const difference = Math.round(after - before);
+    if (stopped != null && difference === 0)
         stopped();
+    return difference;
 }
 
 // main loop
-function initialize(){
+function initialize() {
     setInterval(main, 100);
 }
 
-function main(){
+let jumping_previous = false;
+let jump_counter = 0;
+
+function main() {
+
     if (left && right) {
         running = 0;
     } else if (left) {
@@ -51,34 +55,54 @@ function main(){
         running = 0;
     }
 
-    move("y", 3); // gravity
-    move("x", 3 * running); // run
+    let ground = false;
+    let y_difference = 0;
+    y_difference += move("y", 3, () => {
+        ground = true;
+    }); // gravity
 
-    if(location.hash=="#camera-off") {
+    if (jumping && !jumping_previous && ground) {
+        jump_counter = 10;
+    }
+    jumping_previous = jumping;
+
+    move("x", 3 * running); // run
+    if (jump_counter > 0) {
+        jump_counter--;
+        y_difference += move("y", -5);
+    }
+
+    if (y_difference === 0 && jump_counter > 0) {
+        jump_counter = 0;
+        console.log("roof");
+    }
+
+    if (location.hash === "#camera-off") {
         // camera off
-        
+
         // scrollbars on
-        level_svg.style.overflow="scroll";
-    }else{
+        level_svg.style.overflow = "scroll";
+    } else {
         // camera on (scroll)
         camera();
-        
+
         // no scrollbars: scroll overflow hidden (disabled)
-        level_svg.style.overflow="hidden";
+        level_svg.style.overflow = "hidden";
     }
 }
 
 function camera() {
     const top = movable.getBoundingClientRect().top + level_svg.scrollTop - level_svg.getBoundingClientRect().height / 2;
     const left = movable.getBoundingClientRect().left + level_svg.scrollLeft - level_svg.getBoundingClientRect().width / 2;
-    level_svg.scroll({top,left,behavior:"smooth"})
+    level_svg.scroll({top, left, behavior: "smooth"})
 }
 
-/////////////////////////////////////////
+//****************************************************
 
 let running = 0;
 let left = false;
 let right = false;
+let jumping = false;
 let fire = false;
 
 // mouse and touchscreen
@@ -91,6 +115,10 @@ onmousedown = ontouchstart = function (event) {
             break;
         case "right":
             right = true;
+            event.preventDefault();
+            break;
+        case "third":
+            jumping = true;
             event.preventDefault();
             break;
     }
@@ -107,6 +135,10 @@ onmouseup = ontouchend = function (event) {
             right = false;
             event.preventDefault();
             break;
+        case "third":
+            jumping = false;
+            event.preventDefault();
+            break;
     }
 };
 // keyboard
@@ -121,7 +153,7 @@ onkeydown = function (event) {
             event.preventDefault();
             break;
         case "ArrowUp":
-            jump();
+            jumping = true;
             event.preventDefault();
             break;
         case " ":
@@ -134,11 +166,15 @@ onkeydown = function (event) {
 onkeyup = function (event) {
     switch (event.key) {
         case "ArrowLeft":
-            left = 0;
+            left = false;
             event.preventDefault();
             break;
         case "ArrowRight":
-            right = 0;
+            right = false;
+            event.preventDefault();
+            break;
+        case "ArrowUp":
+            jumping = false;
             event.preventDefault();
             break;
         case " ":
