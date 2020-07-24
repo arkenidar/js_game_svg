@@ -1,0 +1,50 @@
+<!doctype html>
+<title>game</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<style>
+    /* HTML on-screen keyboard */
+    #html_keyboard {
+        height: 2cm;
+        width: 100%;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 0;
+    }
+
+    #level_svg {
+        margin-bottom: 2cm;
+    }
+
+    /* view camera */
+    #movable {
+        scroll-margin: 4cm;
+    }
+
+    /* prevent text selection on touch events like pressing */
+    * {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    
+    /* #html_keyboard should not cover #level_svg */
+    #level_svg {
+        height: calc(98vh - 2cm);
+        /* overflow: scroll; */
+    }
+</style>
+
+<script src="jquery-3.5.1.min.js"></script>
+<script src="jsgame.script.js"></script>
+<div id="level_svg"></div>
+<script>
+$('#level_svg').load('level01.svg',initialize);
+</script>
+
+<div id="html_keyboard">
+    <div id="third" style="height: 49%; width: 99%; display: inline-block; background: yellow;"></div>
+    <div id="left" style="height: 49%; width: 49%; display: inline-block; background: blue;"></div>
+    <div id="right" style="height: 49%; width: 49%; display: inline-block; background: pink;"></div>
+</div>
