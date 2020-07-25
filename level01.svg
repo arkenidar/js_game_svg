@@ -23,7 +23,7 @@
        inkscape:collect="always"
        xlink:href="#Packedcircles"
        id="pattern1555"
-       patternTransform="matrix(8.1417322,0,0,10,62.392499,0)" />
+       patternTransform="matrix(7.6377952,0,0,10,79.312499,0)" />
     <pattern
        inkscape:stockid="Packed circles"
        id="Packedcircles"
@@ -65,9 +65,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="900.53446"
-     inkscape:cy="465.99996"
+     inkscape:zoom="1"
+     inkscape:cx="379.02686"
+     inkscape:cy="360.3569"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -105,11 +105,11 @@
        x="-0.26458332"
        y="-0.12708333" />
     <rect
-       style="fill:url(#pattern1555);fill-opacity:1;stroke-width:0.3541888"
+       style="fill:url(#pattern1555);fill-opacity:1;stroke-width:0.34305236"
        id="rect817"
-       width="273.57916"
+       width="256.64584"
        height="22.225002"
-       x="62.177082"
+       x="79.110413"
        y="53.583332" />
     <rect
        style="fill:url(#Packedcircles);fill-opacity:1;stroke-width:0.22191085"
@@ -168,5 +168,27 @@
        height="28.574999"
        x="232.03958"
        y="145.65833" />
+    <rect
+       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26615912"
+       id="elevator"
+       width="23.283335"
+       height="20.372929"
+       x="36.247917"
+       y="70.516655"
+       inkscape:label="#rect836" />
+    <rect
+       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       id="rect844"
+       width="38.629166"
+       height="5.8208332"
+       x="56.885414"
+       y="0.13748549" />
+    <rect
+       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.20612971"
+       id="rect1554"
+       width="16.933332"
+       height="11.906249"
+       x="62.177074"
+       y="63.902084" />
   </g>
 </svg>

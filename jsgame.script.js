@@ -8,30 +8,32 @@ function collision(firstElement, secondElement) {
         first.bottom > second.top);
 }
 
-function move(axis, vel, stopped = null) {
+function move(movable, axis, vel, stopped = null) {
     const sizeName = axis === "x" ? "width" : "height";
 
-    const e = document.querySelector("#movable");
+    const e = movable;
     // for stopped
-    const before = e.attributes[axis].value;
-    e.attributes[axis].value = parseFloat(e.attributes[axis].value) + vel;
+    const before = parseInt(e.attributes[axis].value);
+    e.attributes[axis].value = parseInt(e.attributes[axis].value) + vel;
+    let collided_with = null;
     for (const r of document.querySelectorAll("rect")) {
         // prevent self-collision
         if (r === e) continue;
         if (collision(r, e)) {
-            const size = vel < 0 ? parseFloat(r.attributes[sizeName].value) : 0;
-            const edge = parseFloat(r.attributes[axis].value) + size;
+            collided_with = r;
+            const size = vel < 0 ? parseInt(r.attributes[sizeName].value) : 0;
+            const edge = parseInt(r.attributes[axis].value) + size;
             if (vel < 0)
-                e.attributes[axis].value = 1 + edge;
+                e.attributes[axis].value = 1 + edge + "";
             else
-                e.attributes[axis].value = -1 + parseFloat(r.attributes[axis].value) - parseFloat(e.attributes[sizeName].value);
+                e.attributes[axis].value = -1 + parseInt(r.attributes[axis].value) - parseInt(e.attributes[sizeName].value) + "";
         }
     }
     // for stopped
     const after = e.attributes[axis].value;
-    const difference = Math.round(after - before);
+    const difference = after - before;
     if (stopped != null && difference === 0)
-        stopped();
+        stopped(collided_with);
     return difference;
 }
 
@@ -42,8 +44,68 @@ function initialize() {
 
 let jumping_previous = false;
 let jump_counter = 0;
+let ground_previous = false;
+let is_on_elevator_previous = false;
 
 function main() {
+
+    /*
+    main() must handle:
+    ground & gravity
+    walls or horizontal collisions
+    jump
+    elevator up and down + squeeze
+    */
+    const m = document.querySelector("#movable");
+
+    //*********************************************
+
+    let y_difference = 0;
+    let ground = null;
+    y_difference += move(m, "y", 3, (collide_with) => {
+        ground = collide_with;
+        if (ground && !ground_previous) console.info("hit the ground");
+    }); // gravity
+    ground_previous = ground;
+
+    //******************************************
+
+    const elevator = document.querySelector("#elevator");
+    if (!elevator.elevator_vel) elevator.elevator_vel = +1; // default velocity
+
+    const is_on_elevator = ground != null && ground.id === "elevator";
+    if (is_on_elevator && !is_on_elevator_previous) console.info("is on elevator");
+    is_on_elevator_previous = is_on_elevator;
+
+    if (elevator.elevator_vel < 0 && is_on_elevator)
+        move(m, "y", elevator.elevator_vel, () => {
+            console.info("elevator stopped. #movable may suffer damage.");
+        });
+    move(elevator, "y", elevator.elevator_vel, (collided_with) => {
+        if (collided_with === m) return
+        elevator.elevator_vel = -elevator.elevator_vel;
+        console.info("elevator: direction inverted");
+    });
+
+    //******************************
+
+    if (jumping && !jumping_previous && ground != null) {
+        jump_counter = 15;
+        console.info("jumping");
+    }
+    jumping_previous = jumping;
+
+    if (jump_counter > 0) {
+        jump_counter--;
+        y_difference += move(m, "y", -5);
+    }
+
+    if (y_difference === 0 && jump_counter > 0) {
+        jump_counter = 0; // roof hit
+        console.info("roof hit");
+    }
+
+    //*********************************
 
     if (left && right) {
         running = 0;
@@ -54,29 +116,9 @@ function main() {
     } else {
         running = 0;
     }
+    move(m, "x", 3 * running); // run
 
-    let ground = false;
-    let y_difference = 0;
-    y_difference += move("y", 3, () => {
-        ground = true;
-    }); // gravity
-
-    if (jumping && !jumping_previous && ground) {
-        jump_counter = 10;
-    }
-    jumping_previous = jumping;
-
-    move("x", 3 * running); // run
-    if (jump_counter > 0) {
-        jump_counter--;
-        y_difference += move("y", -5);
-    }
-
-    if (y_difference === 0 && jump_counter > 0) {
-        jump_counter = 0;
-        console.log("roof");
-    }
-
+    //*********************************
     if (location.hash === "#camera-off") {
         // camera off
 
@@ -122,7 +164,6 @@ onmousedown = ontouchstart = function (event) {
             event.preventDefault();
             break;
     }
-    ///event.preventDefault()
 };
 onmouseup = ontouchend = function (event) {
     const id = event.target.id;
