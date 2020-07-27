@@ -66,7 +66,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="379.02686"
+     inkscape:cx="201.52686"
      inkscape:cy="360.3569"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -190,5 +190,13 @@
        height="11.906249"
        x="62.177074"
        y="63.902084" />
+    <rect
+       style="fill:url(#Packedcircles);fill-opacity:1;stroke-width:0.26458332"
+       id="bg_traversable"
+       width="5.8208332"
+       height="24.606249"
+       x="110.86041"
+       y="28.977068"
+       class="traversable" />
   </g>
 </svg>

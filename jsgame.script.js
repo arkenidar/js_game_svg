@@ -26,6 +26,7 @@ function move(movable, axis, vel, stopped = null) {
     for (const r of document.querySelectorAll("rect")) {
         // prevent self-collision
         if (r === e) continue;
+        if ($(r).hasClass("traversable")) continue;
         if (collision(r, e)) {
             collided_with = r;
 
