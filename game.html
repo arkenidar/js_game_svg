@@ -5,7 +5,7 @@
 <style>
     /* HTML on-screen keyboard */
     #html_keyboard {
-        height: 2cm;
+        height: 4cm;
         width: 100%;
         position: fixed;
         left: 0;
@@ -15,12 +15,7 @@
     }
 
     #level_svg {
-        margin-bottom: 2cm;
-    }
-
-    /* view camera */
-    #movable {
-        scroll-margin: 4cm;
+        margin-bottom: 4cm;
     }
 
     /* prevent text selection on touch events like pressing */
@@ -31,8 +26,8 @@
 
     /* #html_keyboard should not cover #level_svg */
     #level_svg {
-        height: calc(98vh - 2cm);
-        /* overflow: scroll; */
+        overflow: hidden;
+        height: calc(98vh - 4cm);
     }
 </style>
 
@@ -43,8 +38,31 @@
     $('#level_svg').load('level01.svg', initialize);
 </script>
 
+<style>
+    #html_keyboard > * {
+        height: 49%;
+        display: inline-block;
+        border: 1px outset mediumseagreen;
+        background-color: mediumseagreen;
+    }
+
+    #html_keyboard {
+        line-height: 2cm;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1cm;
+    }
+
+    #left, #right {
+        width: 48.5%;
+    }
+
+    #third {
+        width: 98%;
+    }
+</style>
 <div id="html_keyboard">
-    <div id="third" style="height: 49%; width: 99%; display: inline-block; background: yellow;"></div>
-    <div id="left" style="height: 49%; width: 49%; display: inline-block; background: blue;"></div>
-    <div id="right" style="height: 49%; width: 49%; display: inline-block; background: pink;"></div>
+    <div id="third">↑</div>
+    <div id="left">←</div>
+    <div id="right">→</div>
 </div>
