@@ -15,6 +15,22 @@ function svg_clean() {
     }
 }
 
+/*
+https://www.w3schools.com/howto/howto_js_fullscreen.asp
+When the openFullscreen() function is executed, open the video in fullscreen.
+Note that we must include prefixes for different browsers, as they don't support the requestFullscreen method yet */
+function open_fullscreen(elem) {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+    }
+}
+
 function move(movable, axis, vel, stopped = null) {
     const sizeName = axis === "x" ? "width" : "height";
 
@@ -174,6 +190,9 @@ let fire = false;
 
 // mouse and touchscreen
 onmousedown = ontouchstart = function (event) {
+
+    open_fullscreen(document.body)
+
     const id = event.target.id;
     switch (id) {
         case "left":

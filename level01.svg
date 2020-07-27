@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="336.81458mm"
@@ -19,11 +18,6 @@
    sodipodi:docname="level01.svg">
   <defs
      id="defs2">
-    <pattern
-       inkscape:collect="always"
-       xlink:href="#Packedcircles"
-       id="pattern1555"
-       patternTransform="matrix(7.6377952,0,0,10,79.312499,0)" />
     <pattern
        inkscape:stockid="Packed circles"
        id="Packedcircles"
@@ -66,8 +60,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="201.52686"
-     inkscape:cy="360.3569"
+     inkscape:cx="168.10826"
+     inkscape:cy="481.53727"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -98,21 +92,21 @@
      id="layer1"
      transform="translate(0.26458332,0.39166591)">
     <rect
-       style="fill:url(#Packedcircles);fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect815"
        width="35.454166"
        height="53.710415"
        x="-0.26458332"
        y="-0.12708333" />
     <rect
-       style="fill:url(#pattern1555);fill-opacity:1;stroke-width:0.34305236"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.34305236"
        id="rect817"
        width="256.64584"
        height="22.225002"
        x="79.110413"
        y="53.583332" />
     <rect
-       style="fill:url(#Packedcircles);fill-opacity:1;stroke-width:0.22191085"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.22191085"
        id="rect819"
        width="43.920834"
        height="53.974998"
@@ -127,49 +121,49 @@
        y="8.0749998"
        inkscape:label="#rect821" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect842"
        width="9.5249977"
        height="19.84375"
        x="35.189583"
        y="-0.12708333" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect842-3"
        width="9.5249977"
        height="19.84375"
        x="283.10416"
        y="-0.39166591" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.1414257"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.36811465"
        id="rect831"
        width="62.441666"
-       height="10.583327"
+       height="71.702072"
        x="-0.26458332"
        y="102.26667" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.36709449"
        id="rect833"
        width="87.3125"
-       height="31.750006"
+       height="61.118771"
        x="62.177082"
        y="112.84999" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.31341967"
        id="rect835"
-       width="82.020836"
-       height="33.337498"
-       x="150.01875"
+       width="83.34375"
+       height="46.037495"
+       x="148.69583"
        y="128.19583" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect837"
        width="67.204163"
        height="28.574999"
        x="232.03958"
        y="145.65833" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26615912"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26615912"
        id="elevator"
        width="23.283335"
        height="20.372929"
@@ -177,21 +171,21 @@
        y="70.516655"
        inkscape:label="#rect836" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect844"
        width="38.629166"
        height="5.8208332"
        x="56.885414"
        y="0.13748549" />
     <rect
-       style="fill:#ccdc00;fill-opacity:1;stroke-width:0.20612971"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.20612971"
        id="rect1554"
        width="16.933332"
        height="11.906249"
        x="62.177074"
        y="63.902084" />
     <rect
-       style="fill:url(#Packedcircles);fill-opacity:1;stroke-width:0.26458332"
+       style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="bg_traversable"
        width="5.8208332"
        height="24.606249"
