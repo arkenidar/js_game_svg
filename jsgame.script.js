@@ -2,10 +2,17 @@ function collision(firstElement, secondElement) {
     const first = firstElement.getBoundingClientRect();
     const second = secondElement.getBoundingClientRect();
     return (
-        first.left < second.right &&
-        first.right > second.left &&
-        first.top < second.bottom &&
-        first.bottom > second.top);
+        first.left <= second.right &&
+        first.right >= second.left &&
+        first.top <= second.bottom &&
+        first.bottom >= second.top);
+}
+
+function svg_clean() {
+    for (const r of document.querySelectorAll("rect")) {
+        for (const attributeName of ["x", "y", "width", "height"])
+            r.attributes[attributeName].value = parseInt(r.attributes[attributeName].value) + ""
+    }
 }
 
 function move(movable, axis, vel, stopped = null) {
@@ -14,19 +21,35 @@ function move(movable, axis, vel, stopped = null) {
     const e = movable;
     // for stopped
     const before = parseInt(e.attributes[axis].value);
-    e.attributes[axis].value = parseInt(e.attributes[axis].value) + vel;
+    e.attributes[axis].value = before + vel;
     let collided_with = null;
     for (const r of document.querySelectorAll("rect")) {
         // prevent self-collision
         if (r === e) continue;
         if (collision(r, e)) {
             collided_with = r;
-            const size = vel < 0 ? parseInt(r.attributes[sizeName].value) : 0;
-            const edge = parseInt(r.attributes[axis].value) + size;
-            if (vel < 0)
-                e.attributes[axis].value = 1 + edge + "";
-            else
-                e.attributes[axis].value = -1 + parseInt(r.attributes[axis].value) - parseInt(e.attributes[sizeName].value) + "";
+
+            let new_position = before;
+
+            if (vel < 0) {
+                //console.log("vel < 0");
+
+                const new_position_lt = 1 + parseInt(r.attributes[axis].value) + parseInt(r.attributes[sizeName].value);
+                const valid = Math.abs(new_position_lt - before) <= Math.abs(vel);
+
+                //new_position = Math.min(new_position_lt, new_position);
+                if (valid) new_position = new_position_lt;
+            } else if (vel > 0) {
+                //console.log("vel > 0");
+
+                const new_position_gt = -1 + parseInt(r.attributes[axis].value) - parseInt(e.attributes[sizeName].value);
+
+                const valid = Math.abs(new_position_gt - before) <= Math.abs(vel);
+                //new_position = Math.min(new_position_gt, new_position);
+                if (valid) new_position = new_position_gt;
+            }
+
+            e.attributes[axis].value = new_position + "";
         }
     }
     // for stopped
@@ -39,6 +62,7 @@ function move(movable, axis, vel, stopped = null) {
 
 // main loop
 function initialize() {
+    svg_clean();
     setInterval(main, 100);
 }
 
