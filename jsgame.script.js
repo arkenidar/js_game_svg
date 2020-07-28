@@ -86,7 +86,6 @@ function initialize() {
 let jumping_previous = false;
 let jump_counter = 0;
 let ground_previous = false;
-let is_on_elevator_previous = false;
 
 function main() {
 
@@ -111,23 +110,23 @@ function main() {
 
     //******************************************
 
-    const elevator = document.querySelector("#elevator");
-    if (!elevator.elevator_vel) elevator.elevator_vel = +1; // default velocity
+    for (const elevator of document.querySelectorAll(".elevator")) {
+        if (!elevator.elevator_vel) elevator.elevator_vel = +1; // default velocity
 
-    const is_on_elevator = ground != null && ground.id === "elevator";
-    if (is_on_elevator && !is_on_elevator_previous) console.info("is on elevator");
-    is_on_elevator_previous = is_on_elevator;
+        const is_on_elevator = ground === elevator;
+        if (is_on_elevator && !elevator.is_on_elevator_previous) console.info("is on elevator", elevator.id);
+        elevator.is_on_elevator_previous = is_on_elevator;
 
-    if (elevator.elevator_vel < 0 && is_on_elevator)
-        move(m, "y", elevator.elevator_vel, () => {
-            console.info("elevator stopped. #movable may suffer damage.");
+        if (elevator.elevator_vel < 0 && is_on_elevator)
+            move(m, "y", elevator.elevator_vel, () => {
+                console.info("elevator stopped. #movable may suffer damage.");
+            });
+        move(elevator, "y", elevator.elevator_vel, (collided_with) => {
+            if (collided_with === m) return
+            elevator.elevator_vel = -elevator.elevator_vel;
+            console.info("elevator: direction inverted", elevator.id);
         });
-    move(elevator, "y", elevator.elevator_vel, (collided_with) => {
-        if (collided_with === m) return
-        elevator.elevator_vel = -elevator.elevator_vel;
-        console.info("elevator: direction inverted");
-    });
-
+    }
     //******************************
 
     if (jumping && !jumping_previous && ground != null) {
