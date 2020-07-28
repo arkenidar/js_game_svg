@@ -129,14 +129,20 @@
        height="53.974998"
        x="292.62915"
        y="-0.39166591" />
-    <rect
+   <!-- <rect
        style="fill:#00dc00;fill-opacity:1;stroke-width:0.26458332"
        id="movable"
        width="18.25625"
        height="17.4625"
        x="64.293747"
        y="8.0749998"
-       inkscape:label="#rect821" />
+       inkscape:label="#rect821" /> -->
+      <image href="images/movable.png"
+             id="movable"
+             x="64"
+             y="8"
+             width="18" height="18"
+      />
     <rect
        style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect842"
@@ -209,5 +215,6 @@
        x="110.86041"
        y="28.977068"
        class="traversable" />
+
   </g>
 </svg>

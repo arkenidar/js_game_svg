@@ -9,7 +9,7 @@ function collision(firstElement, secondElement) {
 }
 
 function svg_clean() {
-    for (const r of document.querySelectorAll("rect")) {
+    for (const r of document.querySelectorAll("rect, image")) {
         for (const attributeName of ["x", "y", "width", "height"])
             r.attributes[attributeName].value = parseInt(r.attributes[attributeName].value) + ""
     }
@@ -39,7 +39,7 @@ function move(movable, axis, vel, stopped = null) {
     const before = parseInt(e.attributes[axis].value);
     e.attributes[axis].value = before + vel;
     let collided_with = null;
-    for (const r of document.querySelectorAll("rect")) {
+    for (const r of document.querySelectorAll("rect, image")) {
         // prevent self-collision
         if (r === e) continue;
         if ($(r).hasClass("traversable")) continue;
@@ -152,11 +152,16 @@ function main() {
         running = 0;
     } else if (left) {
         running = -1;
+        // mirror
+        movable.href.baseVal="images/movable2.png";
     } else if (right) {
         running = +1;
+        // revert mirror
+        movable.href.baseVal="images/movable.png";
     } else {
         running = 0;
     }
+
     move(m, "x", 3 * running); // run
 
     //*********************************
