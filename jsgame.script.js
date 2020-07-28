@@ -153,17 +153,21 @@ function main() {
     } else if (left) {
         running = -1;
         // mirror
-        movable.href.baseVal="images/movable2.png";
+        movable.href.baseVal = "images/movable2.png";
     } else if (right) {
         running = +1;
         // revert mirror
-        movable.href.baseVal="images/movable.png";
+        movable.href.baseVal = "images/movable.png";
     } else {
         running = 0;
     }
 
     move(m, "x", 3 * running); // run
+}
 
+setInterval(scrolling, 1500);
+
+function scrolling() {
     //*********************************
     if (location.hash === "#camera-off") {
         // camera off
