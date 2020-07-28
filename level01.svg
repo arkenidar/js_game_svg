@@ -185,6 +185,7 @@
        height="28.574999"
        x="232.03958"
        y="145.65833" />
+    <!--
     <rect
        style="fill:#000000;fill-opacity:1;stroke-width:0.26615912"
        id="elevator"
@@ -193,6 +194,13 @@
        x="36.247917"
        y="70.516655"
        inkscape:label="#rect836" />
+       -->
+    <image href="images/bush.png"
+           id="elevator"
+           x="36"
+           y="70"
+           width="23" height="20"
+    />
     <rect
        style="fill:url(#Packedcircles);fill-opacity:1.0;stroke-width:0.26458332"
        id="rect844"
