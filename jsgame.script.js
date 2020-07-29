@@ -2,10 +2,10 @@ function collision(firstElement, secondElement) {
     const first = firstElement.getBoundingClientRect();
     const second = secondElement.getBoundingClientRect();
     return (
-        first.left <= second.right &&
-        first.right >= second.left &&
-        first.top <= second.bottom &&
-        first.bottom >= second.top);
+        first.left < second.right &&
+        first.right > second.left &&
+        first.top < second.bottom &&
+        first.bottom > second.top);
 }
 
 function svg_clean() {
@@ -37,12 +37,13 @@ function move(movable, axis, vel, stopped = null) {
     const e = movable;
     // for stopped
     const before = parseInt(e.attributes[axis].value);
-    e.attributes[axis].value = before + vel;
+    e.attributes[axis].value = before + vel + "";
     let collided_with = null;
     for (const r of document.querySelectorAll("rect, image")) {
         // prevent self-collision
         if (r === e) continue;
         if ($(r).hasClass("traversable")) continue;
+        if ($(r).parent()[0].nodeName==="pattern") continue;
         if (collision(r, e)) {
             collided_with = r;
 
@@ -51,7 +52,7 @@ function move(movable, axis, vel, stopped = null) {
             if (vel < 0) {
                 //console.log("vel < 0");
 
-                const new_position_lt = 1 + parseInt(r.attributes[axis].value) + parseInt(r.attributes[sizeName].value);
+                const new_position_lt = parseInt(r.attributes[axis].value) + parseInt(r.attributes[sizeName].value);
                 const valid = Math.abs(new_position_lt - before) <= Math.abs(vel);
 
                 //new_position = Math.min(new_position_lt, new_position);
@@ -59,7 +60,7 @@ function move(movable, axis, vel, stopped = null) {
             } else if (vel > 0) {
                 //console.log("vel > 0");
 
-                const new_position_gt = -1 + parseInt(r.attributes[axis].value) - parseInt(e.attributes[sizeName].value);
+                const new_position_gt = parseInt(r.attributes[axis].value) - parseInt(e.attributes[sizeName].value);
 
                 const valid = Math.abs(new_position_gt - before) <= Math.abs(vel);
                 //new_position = Math.min(new_position_gt, new_position);
@@ -70,7 +71,7 @@ function move(movable, axis, vel, stopped = null) {
         }
     }
     // for stopped
-    const after = e.attributes[axis].value;
+    const after = parseInt(e.attributes[axis].value);
     const difference = after - before;
     if (stopped != null && difference === 0)
         stopped(collided_with);
