@@ -43,6 +43,9 @@ function move(movable, axis, vel, stopped = null) {
         // prevent self-collision
         if (r === e) continue;
         if ($(r).hasClass("traversable")) continue;
+
+        if ($(r).parent()[0].nodeName==="pattern") continue;
+        
         if (collision(r, e)) {
             collided_with = r;
 
