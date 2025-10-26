@@ -34,7 +34,7 @@
 function collision(firstElement, secondElement) {
     // Ensure elements exist and have proper dimensions
     if (!firstElement || !secondElement) return false;
-    
+
     // Get SVG-relative coordinates instead of viewport-relative
     // This fixes viewport-size dependency issues in Chrome
     const getSVGRect = (elem) => {
@@ -49,13 +49,13 @@ function collision(firstElement, secondElement) {
                     bottom: bbox.y + bbox.height
                 };
             }
-            
+
             // Fallback to attribute-based calculation
             const x = parseFloat(elem.getAttribute('x') || 0);
             const y = parseFloat(elem.getAttribute('y') || 0);
             const width = parseFloat(elem.getAttribute('width') || 0);
             const height = parseFloat(elem.getAttribute('height') || 0);
-            
+
             return {
                 left: x,
                 right: x + width,
@@ -67,10 +67,10 @@ function collision(firstElement, secondElement) {
             return { left: 0, right: 0, top: 0, bottom: 0 };
         }
     };
-    
+
     const first = getSVGRect(firstElement);
     const second = getSVGRect(secondElement);
-    
+
     // Add small tolerance for floating point precision issues
     const tolerance = 0.1;
     return (
@@ -147,7 +147,7 @@ function move(movable, axis, vel, stopped = null) {
     const sizeName = axis === "x" ? "width" : "height";
 
     const e = movable;
-    
+
     // More robust cross-browser SVG attribute handling
     const getAttrValue = (elem, attr) => {
         try {
@@ -156,33 +156,33 @@ function move(movable, axis, vel, stopped = null) {
             if (value !== null && value !== undefined) {
                 return parseFloat(value) || 0;
             }
-            
+
             // Fallback: direct attribute access
             if (elem.attributes && elem.attributes[attr]) {
                 return parseFloat(elem.attributes[attr].value) || 0;
             }
-            
+
             return 0;
         } catch (e) {
             console.warn('Error getting attribute:', attr, e);
             return 0;
         }
     };
-    
+
     const setAttrValue = (elem, attr, value) => {
         try {
             // Round to avoid floating point precision issues
             const roundedValue = Math.round(value * 10) / 10; // Round to 1 decimal
             const valueStr = String(roundedValue);
-            
+
             // Set using getAttribute/setAttribute for consistency
             elem.setAttribute(attr, valueStr);
-            
+
             // Also set using direct access as fallback
             if (elem.attributes && elem.attributes[attr]) {
                 elem.attributes[attr].value = valueStr;
             }
-            
+
         } catch (e) {
             console.warn('Error setting attribute:', attr, e);
         }
@@ -190,12 +190,12 @@ function move(movable, axis, vel, stopped = null) {
 
     // Store original position
     const before = getAttrValue(e, axis);
-    
+
     // Apply movement
     setAttrValue(e, axis, before + vel);
-    
+
     let collided_with = null;
-    
+
     for (const r of document.querySelectorAll("rect, image")) {
         // prevent self-collision
         if (r === e) continue;
@@ -225,14 +225,14 @@ function move(movable, axis, vel, stopped = null) {
             break; // Handle only first collision
         }
     }
-    
+
     // Check if movement was actually blocked
     const after = getAttrValue(e, axis);
     const difference = after - before;
     if (stopped != null && difference === 0 && collided_with) {
         stopped(collided_with);
     }
-    
+
     return difference;
 }
 
@@ -247,12 +247,12 @@ function move(movable, axis, vel, stopped = null) {
 // main loop
 function initialize() {
     svg_clean();
-    
+
     // Cross-browser frame synchronization
     // Use requestAnimationFrame for smoother, more consistent timing
     let lastTime = 0;
     const targetFrameTime = 100; // 100ms = 10 FPS
-    
+
     function gameLoop(currentTime) {
         if (currentTime - lastTime >= targetFrameTime) {
             main();
@@ -260,7 +260,7 @@ function initialize() {
         }
         requestAnimationFrame(gameLoop);
     }
-    
+
     // Fallback for older browsers
     if (typeof requestAnimationFrame !== 'undefined') {
         requestAnimationFrame(gameLoop);
