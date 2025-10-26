@@ -1,74 +1,84 @@
 <!doctype html>
-<title>game</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<style>
-    /* HTML on-screen keyboard */
-    #html_keyboard {
-        height: 4cm;
-        width: 100%;
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: auto;
-        bottom: 0;
-    }
+<html>
 
-    #level_svg {
-        margin-bottom: 4cm;
-    }
+<head>
+    <title>game</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    /* prevent text selection on touch events like pressing */
-    * {
-        user-select: none;
-        -webkit-user-select: none;
-    }
+    <style>
+        /* HTML on-screen keyboard */
+        #html_keyboard {
+            height: 4cm;
+            width: 100%;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: auto;
+            bottom: 0;
+        }
 
-    /* #html_keyboard should not cover #level_svg */
-    #level_svg {
-        overflow: hidden;
-        height: calc(98vh - 4cm);
-        background-color: lightgray;
-    }
+        #level_svg {
+            margin-bottom: 4cm;
+        }
 
-    body {
-        margin: 0;
-    }
-</style>
+        /* prevent text selection on touch events like pressing */
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-<script src="jquery-3.5.1.min.js"></script>
-<script src="jsgame.script.js"></script>
-<div id="level_svg"></div>
-<script>
-    $('#level_svg').load('level01.svg', initialize);
-</script>
+        /* #html_keyboard should not cover #level_svg */
+        #level_svg {
+            overflow: hidden;
+            height: calc(98vh - 4cm);
+            background-color: lightgray;
+        }
 
-<style>
-    #html_keyboard>* {
-        height: 49%;
-        display: inline-block;
-        border: 1px outset mediumseagreen;
-        background-color: mediumseagreen;
-    }
+        body {
+            margin: 0;
+        }
+    </style>
 
-    #html_keyboard {
-        line-height: 2cm;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 1cm;
-    }
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="jsgame.script.js"></script>
+</head>
 
-    #left,
-    #right {
-        width: 45%;
-    }
+<body>
+    <div id="level_svg"></div>
+    <script>
+        $('#level_svg').load('level01.svg', initialize);
+    </script>
 
-    #third {
-        width: 98%;
-    }
-</style>
-<div id="html_keyboard">
-    <div id="third">↑</div>
-    <div id="left">←</div>
-    <div id="right">→</div>
-</div>
+    <style>
+        #html_keyboard>* {
+            height: 49%;
+            display: inline-block;
+            border: 1px outset mediumseagreen;
+            background-color: mediumseagreen;
+        }
+
+        #html_keyboard {
+            line-height: 2cm;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 1cm;
+        }
+
+        #left,
+        #right {
+            width: 45%;
+        }
+
+        #third {
+            width: 98%;
+        }
+    </style>
+    <div id="html_keyboard">
+        <div id="third">↑</div>
+        <div id="left">←</div>
+        <div id="right">→</div>
+    </div>
+</body>
+
+</html>
