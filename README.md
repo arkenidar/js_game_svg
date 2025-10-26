@@ -12,7 +12,7 @@ This project is a modern experiment toward adapting SVG editor workflows (e.g. I
 - **CSS3**: Styling, responsive design, and visual keyboard
 - **JavaScript (ES6+)**: Game logic, physics, and collision detection
 - **SVG**: Level design and game graphics (created with Inkscape)
-- **jQuery**: DOM manipulation and cross-browser compatibility
+- **Fetch API**: Modern asynchronous level loading
 
 ## Key Features
 
@@ -77,7 +77,6 @@ for (const elevator of document.querySelectorAll(".elevator")) {
 js_game_svg/
 ├── game.html              # Main game file and UI
 ├── jsgame.script.js       # Game logic and physics engine
-├── jquery-3.5.1.min.js    # DOM manipulation library
 ├── level01.svg            # Game level (Inkscape-created)
 ├── images/                # Game assets
 │   ├── bush.png          # Platform textures
@@ -186,7 +185,7 @@ This project is open source. See repository for license details.
 ## Acknowledgments
 
 - **Inkscape**: SVG level design tool
-- **jQuery**: Cross-browser DOM manipulation
+- **Fetch API**: Modern asynchronous loading
 - **Community**: Contributors and testers who helped identify cross-browser issues
 
 ---

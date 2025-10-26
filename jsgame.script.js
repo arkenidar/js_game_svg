@@ -199,8 +199,11 @@ function move(movable, axis, vel, stopped = null) {
     for (const r of document.querySelectorAll("rect, image")) {
         // prevent self-collision
         if (r === e) continue;
-        if ($(r).hasClass("traversable")) continue;
-        if ($(r).parent()[0].nodeName === "pattern") continue;
+        // Skip elements with "traversable" class (can be passed through)
+        if (r.classList && r.classList.contains("traversable")) continue;
+
+        // Skip elements inside pattern definitions (textures/backgrounds)
+        if (r.parentNode && r.parentNode.nodeName === "pattern") continue;
 
         if (collision(r, e)) {
             collided_with = r;
